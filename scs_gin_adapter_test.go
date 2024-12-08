@@ -1,4 +1,4 @@
-package scs_gin_adapter_test
+package scs_gin_adapter
 
 import (
 	"context"
@@ -17,8 +17,6 @@ import (
 
 	"github.com/alexedwards/scs/v2"
 	"github.com/gin-gonic/gin"
-
-	ginAdapter "sitetrace/internal/domain/scs_gin_adapter"
 )
 
 type testServer struct {
@@ -71,7 +69,7 @@ func TestEnable(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
@@ -114,7 +112,7 @@ func TestLifetime(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
@@ -156,7 +154,7 @@ func TestIdleTimeout(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
@@ -200,7 +198,7 @@ func TestDestroy(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
@@ -268,7 +266,7 @@ func TestRenewToken(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
@@ -321,7 +319,7 @@ func TestRememberMe(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put-normal", func(c *gin.Context) {
@@ -383,7 +381,7 @@ func TestIterate(t *testing.T) {
 
 	r := gin.Default()
 
-	sessionAdapter := ginAdapter.New(sessionManager)
+	sessionAdapter := New(sessionManager)
 	r.Use(sessionAdapter.LoadAndSave)
 
 	r.GET("/put", func(c *gin.Context) {
