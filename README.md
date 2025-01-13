@@ -7,7 +7,7 @@ The Gin SCS Adapter allows you to seamlessly use the SCS session manager within 
 To use this package, import it in your Go application:
 
 ```bash
-go get github.com/goshleg/scs_gin_adapter
+go get github.com/39george/scs_gin_adapter
 ```
 
 ## Getting Started
@@ -18,7 +18,7 @@ You can create a new session manager and set up the Gin adapter as follows:
 import(
   	"github.com/alexedwards/scs/v2"
    	"github.com/gin-gonic/gin"
-    gin_adapter "github.com/goshleg/scs_gin_adapter"
+    gin_adapter "github.com/39george/scs_gin_adapter"
 )
 
 func main() {
