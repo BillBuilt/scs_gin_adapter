@@ -1,4 +1,4 @@
-module github.com/32george/scs_gin_adapter
+module github.com/39george/scs_gin_adapter
 
 go 1.23.2
 
