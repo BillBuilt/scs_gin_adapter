@@ -1,0 +1,17 @@
+mode: atomic
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:16.45,18.2 1 7
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:23.58,29.16 5 22
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:29.16,31.3 1 11
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:33.2,34.16 2 22
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:34.16,37.3 2 0
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:39.2,43.15 4 22
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:49.76,53.2 3 12
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:66.71,70.2 3 8
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:75.57,77.16 2 1
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:77.16,79.3 1 0
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:80.2,81.12 2 1
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:94.60,96.16 2 1
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:96.16,98.3 1 0
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:99.2,101.12 3 1
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:108.64,112.2 3 2
+github.com/39george/scs_gin_adapter/scs_gin_adapter.go:117.72,122.2 4 0
