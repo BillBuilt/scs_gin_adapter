@@ -20,19 +20,19 @@ func New(s *scs.SessionManager) *GinAdapter {
 // LoadAndSave provides a Gin middleware which automatically loads and saves session
 // data for the current request, and communicates the session token to and from
 // the client in a cookie.
-func (self *GinAdapter) LoadAndSave(ginCtx *gin.Context) {
+func (ga *GinAdapter) LoadAndSave(ginCtx *gin.Context) {
 	respWriter := ginCtx.Writer
 	req := ginCtx.Request
 
 	var token string
-	cookie, err := req.Cookie(self.sm.Cookie.Name)
+	cookie, err := req.Cookie(ga.sm.Cookie.Name)
 	if err == nil {
 		token = cookie.Value
 	}
 
-	ctx, err := self.sm.Load(req.Context(), token)
+	ctx, err := ga.sm.Load(req.Context(), token)
 	if err != nil {
-		self.sm.ErrorFunc(respWriter, req, err)
+		ga.sm.ErrorFunc(respWriter, req, err)
 		return
 	}
 
@@ -46,10 +46,10 @@ func (self *GinAdapter) LoadAndSave(ginCtx *gin.Context) {
 // Put adds a key and corresponding value to the session data. Any existing
 // value for the key will be replaced. The session data status will be set to
 // Modified.
-func (self *GinAdapter) Put(ctx *gin.Context, key string, val interface{}) {
-	self.sm.Put(ctx.Request.Context(), key, val)
-	tok, exp, _ := self.sm.Commit(ctx.Request.Context())
-	self.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
+func (ga *GinAdapter) Put(ctx *gin.Context, key string, val interface{}) {
+	ga.sm.Put(ctx.Request.Context(), key, val)
+	tok, exp, _ := ga.sm.Commit(ctx.Request.Context())
+	ga.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
 }
 
 // Get returns the value for a given key from the session data. The return
@@ -63,21 +63,21 @@ func (self *GinAdapter) Put(ctx *gin.Context, key string, val interface{}) {
 //
 // Also see the GetString(), GetInt(), GetBytes() and other helper methods which
 // wrap the type conversion for common types.
-func (self *GinAdapter) Get(ctx *gin.Context, key string) interface{} {
-	val := self.sm.Get(ctx.Request.Context(), key)
-	self.sm.Commit(ctx.Request.Context())
+func (ga *GinAdapter) Get(ctx *gin.Context, key string) interface{} {
+	val := ga.sm.Get(ctx.Request.Context(), key)
+	ga.sm.Commit(ctx.Request.Context())
 	return val
 }
 
 // Destroy deletes the session data from the session store and sets the session
 // status to Destroyed. Any further operations in the same request cycle will
 // result in a new session being created.
-func (self *GinAdapter) Destroy(ctx *gin.Context) error {
-	err := self.sm.Destroy(ctx.Request.Context())
+func (ga *GinAdapter) Destroy(ctx *gin.Context) error {
+	err := ga.sm.Destroy(ctx.Request.Context())
 	if err != nil {
 		return err
 	}
-	self.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, "", time.Time{})
+	ga.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, "", time.Time{})
 	return nil
 }
 
@@ -91,13 +91,13 @@ func (self *GinAdapter) Destroy(ctx *gin.Context) error {
 // RenewToken before making any changes to privilege levels (e.g. login and
 // logout operations). See https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Session_Management_Cheat_Sheet.md#renew-the-session-id-after-any-privilege-level-change
 // for additional information.
-func (self *GinAdapter) RenewToken(ctx *gin.Context) error {
-	err := self.sm.RenewToken(ctx.Request.Context())
+func (ga *GinAdapter) RenewToken(ctx *gin.Context) error {
+	err := ga.sm.RenewToken(ctx.Request.Context())
 	if err != nil {
 		return err
 	}
-	tok, exp, _ := self.sm.Commit(ctx.Request.Context())
-	self.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
+	tok, exp, _ := ga.sm.Commit(ctx.Request.Context())
+	ga.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
 	return nil
 }
 
@@ -105,18 +105,18 @@ func (self *GinAdapter) RenewToken(ctx *gin.Context) error {
 // is retained after a user closes their browser). RememberMe only has an effect
 // if you have set SessionManager.Cookie.Persist = false (the default is true) and
 // you are using the standard LoadAndSave() middleware.
-func (self *GinAdapter) RememberMe(ctx *gin.Context, val bool) {
-	self.sm.RememberMe(ctx.Request.Context(), val)
-	tok, exp, _ := self.sm.Commit(ctx.Request.Context())
-	self.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
+func (ga *GinAdapter) RememberMe(ctx *gin.Context, val bool) {
+	ga.sm.RememberMe(ctx.Request.Context(), val)
+	tok, exp, _ := ga.sm.Commit(ctx.Request.Context())
+	ga.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
 }
 
 // GetString returns the string value for a given key from the session data.
 // The zero value for a string ("") is returned if the key does not exist or the
 // value could not be type asserted to a string.
-func (self *GinAdapter) GetString(ctx *gin.Context, key string) string {
-	val := self.sm.GetString(ctx.Request.Context(), key)
-	tok, exp, _ := self.sm.Commit(ctx.Request.Context())
-	self.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
+func (ga *GinAdapter) GetString(ctx *gin.Context, key string) string {
+	val := ga.sm.GetString(ctx.Request.Context(), key)
+	tok, exp, _ := ga.sm.Commit(ctx.Request.Context())
+	ga.sm.WriteSessionCookie(ctx.Request.Context(), ctx.Writer, tok, exp)
 	return val
 }
