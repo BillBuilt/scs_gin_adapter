@@ -46,7 +46,6 @@ func main() {
 Due to the way Gin handles response writing, it is not possible to use the SCS session manager's LoadAndSave middleware directly without encountering issues. Once the response body or headers are written in a Gin handler, attempting to modify the headers will result in an error stating that headers have already been written.
 
 The Gin SCS Adapter serves as a wrapper around essential SCS functions. It ensures that the session is committed and response headers are written at the appropriate time, within the request handler, rather than within the middleware. This approach avoids conflicts with Gin's response writing mechanism.
-Middleware Functionality
 
 The LoadAndSave middleware is responsible solely for loading the session data and injecting the relevant session context into the Gin context. It does not perform any additional actions.
 
